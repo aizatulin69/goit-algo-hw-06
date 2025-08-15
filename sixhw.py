@@ -30,9 +30,12 @@ class Record:
 
     def edit_phone(self, old_phone, new_phone):
         phone = self.find_phone(old_phone)
-        if phone is not None:
-            self.remove_phone(phone.value)
-            self.add_phone(new_phone)
+        if phone is None:
+            raise ValueError
+        if not new_phone or not new_phone.isdigit() or len(new_phone) != 10:
+            raise ValueError
+        self.remove_phone(phone.value)
+        self.add_phone(new_phone)
 
     def remove_phone(self, phone):
         p = self.find_phone(phone)
